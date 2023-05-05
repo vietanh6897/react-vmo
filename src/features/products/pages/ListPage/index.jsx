@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import productApi from "../../../../api/productApi";
 import { Table } from "antd";
+import "./styles.scss";
 
 ProductListPage.propTypes = {};
 const columns = [
@@ -51,7 +52,17 @@ function ProductListPage(props) {
     };
     fetchProducts();
   }, []);
-  return <Table columns={columns} dataSource={data} />;
+  return (
+    <Table
+      columns={columns}
+      dataSource={data}
+      className="table-container"
+      bordered
+      pagination={false}
+      rowKey="id"
+      style={{ backgroundColor: "white" }}
+    />
+  );
 }
 
 export default ProductListPage;
