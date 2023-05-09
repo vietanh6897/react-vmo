@@ -1,66 +1,67 @@
-import { Layout, Menu, Button, theme } from "antd";
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-} from "@ant-design/icons";
+import { Layout, theme } from "antd";
+import Icon from "@ant-design/icons";
 import { Navigate, Route, Routes } from "react-router-dom";
 import TodoFeature from "./features/todo/pages";
 import AlbumFeature from "./features/album/pages";
 import TodoListPage from "./features/todo/pages/ListPage";
 import TodoDetailPage from "./features/todo/pages/DetailPage";
 import "./i18n";
-import { useNavigate, useLocation } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ProductFeature from "./features/products/pages";
 import ProductListPage from "./features/products/pages/ListPage";
 import ProductDetailPage from "./features/products/pages/DetailPage";
 import Logo from "./logo.svg";
 import LogoNoText from "./logoNoText.svg";
+import FileText from "./assets/icon/FileText.svg";
+import Notification from "./assets/icon/Notification.svg";
+import SignOut from "./assets/icon/SignOut.svg";
+import UserList from "./assets/icon/UserList.svg";
 import "./index.css";
+import AppSideMenu from "./share-components/AppSideMenu";
+import AppHeader from "./share-components/AppHeader";
 
-const { Header, Content, Sider } = Layout;
+const { Content } = Layout;
 
 function App() {
-  const navigate = useNavigate();
-  const handleMenuClick = (e) => {
-    navigate(e);
-  };
+  // const navigate = useNavigate();
+  // const handleMenuClick = (e) => {
+  //   navigate(e);
+  // };
   const menuItems = [
     {
-      key: "/todos",
-      icon: <UserOutlined />,
-      label: "TODO LIST",
+      key: "/",
+      icon: <Icon component={() => <img src={FileText} alt="1" />} />,
+      label: "案件一覧",
+      role: "all",
       children: [
         {
-          key: "/todos-child",
-          icon: <UserOutlined />,
-          label: "TODO child 1",
-          children: [],
+          key: "/todos",
+          icon: <Icon component={() => <img src={Notification} alt="2" />} />,
+          label: "テンプレート一覧",
         },
       ],
     },
     {
       key: "/albums",
-      icon: <VideoCameraOutlined />,
-      label: "ALBUMS",
+      icon: <Icon component={() => <img src={SignOut} alt="3" />} />,
+      label: "マスター管理",
+      role: "all",
     },
     {
       key: "/products",
-      icon: <UploadOutlined />,
-      label: "PRODUCTS",
+      icon: <Icon component={() => <img src={UserList} alt="4" />} />,
+      label: "アカウント一覧",
+      role: "all",
     },
   ];
 
-  const [current, setCurrent] = useState("");
-  const location = useLocation();
+  // const [current, setCurrent] = useState("");
+  // const location = useLocation();
 
-  useEffect(() => {
-    const pathname = location.pathname;
-    setCurrent(pathname);
-  }, [location]);
+  // useEffect(() => {
+  //   const pathname = location.pathname;
+  //   setCurrent(pathname);
+  // }, [location]);
   const [collapsed, setCollapsed] = useState(false);
   const [logoImage, setLogoImage] = useState(Logo);
   const {
@@ -69,12 +70,18 @@ function App() {
 
   const toggleSider = () => {
     setCollapsed(!collapsed);
-    setLogoImage(logoImage === Logo ? LogoNoText : Logo);
+    if (logoImage === LogoNoText) {
+      setTimeout(function () {
+        setLogoImage(logoImage === Logo ? LogoNoText : Logo);
+      }, 100);
+    } else {
+      setLogoImage(logoImage === Logo ? LogoNoText : Logo);
+    }
   };
-
+  const userRole = "all";
   return (
     <Layout style={{ minHeight: "100vh" }} hasSider>
-      <Sider
+      {/* <Sider
         trigger={null}
         collapsible
         collapsed={collapsed}
@@ -85,7 +92,6 @@ function App() {
           position: "fixed",
           left: 0,
           zIndex: 1,
-          boxShadow: "2px 0 6px rgba(0, 21, 41, 0.35)",
         }}
         width={220}
       >
@@ -109,13 +115,21 @@ function App() {
           items={menuItems}
           onClick={(info) => handleMenuClick(info.key)}
         ></Menu>
-      </Sider>
-
+      </Sider> */}
+      <AppSideMenu
+        menuItems={menuItems}
+        collapsed={collapsed}
+        userRole={userRole}
+        logoImage={logoImage}
+      ></AppSideMenu>
       <Layout
         className="site-layout"
-        style={{ marginLeft: collapsed ? "80px" : "220px" }}
+        style={{
+          marginLeft: collapsed ? "80px" : "304px",
+          transition: "all 0.2s,background 0s",
+        }}
       >
-        <Header
+        {/* <Header
           style={{
             padding: 0,
             background: colorBgContainer,
@@ -135,7 +149,12 @@ function App() {
               height: 64,
             }}
           />
-        </Header>
+        </Header> */}
+        <AppHeader
+          toggleSider={toggleSider}
+          colorBgContainer={colorBgContainer}
+          collapsed={collapsed}
+        ></AppHeader>
         <Content
           style={{
             padding: 24,

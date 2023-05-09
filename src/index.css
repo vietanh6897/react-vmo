@@ -15,9 +15,17 @@ code {
   height: 32px;
   margin: 16px;
   background: rgba(255, 255, 255, 0.2);
-  transition: "all 0.3s ease";
 }
-.ant-menu-item-selected {
+.ant-menu-item-selected,
+.ant-menu-submenu-selected,
+.ant-menu-item-active {
   background-color: #e7f1ef !important;
   color: #116e63 !important;
 }
+.ant-menu-item::after {
+  border-inline-end: none !important;
+}
+
+/* .ant-menu-item {
+  padding: 0 24px !important;
+} */
