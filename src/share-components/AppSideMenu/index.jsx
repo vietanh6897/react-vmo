@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import SignOut from "../../assets/icon/SignOut.svg";
 import Icon from "@ant-design/icons";
+import "./styles.scss";
 const { Sider } = Layout;
 function AppSideMenu({ menuItems, userRole, logoImage, collapsed }) {
   const filteredMenuItems = menuItems.filter(
@@ -44,13 +45,13 @@ function AppSideMenu({ menuItems, userRole, logoImage, collapsed }) {
       collapsed={collapsed}
       theme="light"
       style={{
-        overflow: "auto",
         height: "100vh",
         position: "fixed",
         left: 0,
         zIndex: 1,
       }}
-      width={304}
+      width={328}
+      collapsedWidth={108}
     >
       <div className="logo">
         {
@@ -65,39 +66,43 @@ function AppSideMenu({ menuItems, userRole, logoImage, collapsed }) {
           />
         }
       </div>
-      <Menu
-        theme="light"
-        mode="inline"
-        selectedKeys={[current]}
-        items={filteredMenuItems.map((menuItem) => ({
-          key: menuItem.key,
-          icon: menuItem.icon,
-          label: menuItem.label,
-          children: menuItem.children,
-        }))}
-        defaultOpenKeys={openKeys}
-        onSelect={handleMenuSelect}
-        onClick={(info) => handleMenuClick(info.key)}
-      ></Menu>
-      <Menu
+      <div
         style={{
-          position: "absolute",
-          bottom: 0,
-          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          height: "calc(100vh - 86px)",
         }}
-        theme="light"
-        mode="inline"
-        items={[
-          {
-            key: "/login",
-            icon: (
-              <Icon component={() => <img src={SignOut} alt="SignOut" />} />
-            ),
-            label: "案件一覧",
-          },
-        ]}
-        onClick={(info) => handleLogout(info.key)}
-      ></Menu>
+      >
+        <Menu
+          theme="light"
+          mode="inline"
+          selectedKeys={[current]}
+          items={filteredMenuItems.map((menuItem) => ({
+            key: menuItem.key,
+            icon: menuItem.icon,
+            label: menuItem.label,
+            children: menuItem.children,
+          }))}
+          defaultOpenKeys={openKeys}
+          onSelect={handleMenuSelect}
+          onClick={(info) => handleMenuClick(info.key)}
+        ></Menu>
+        <Menu
+          theme="light"
+          mode="inline"
+          items={[
+            {
+              key: "/login",
+              icon: (
+                <Icon component={() => <img src={SignOut} alt="SignOut" />} />
+              ),
+              label: "案件一覧",
+            },
+          ]}
+          onClick={(info) => handleLogout(info.key)}
+        ></Menu>
+      </div>
     </Sider>
   );
 }

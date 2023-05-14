@@ -125,7 +125,7 @@ function App() {
       <Layout
         className="site-layout"
         style={{
-          marginLeft: collapsed ? "80px" : "304px",
+          marginLeft: collapsed ? "108px" : "328px",
           transition: "all 0.2s,background 0s",
         }}
       >

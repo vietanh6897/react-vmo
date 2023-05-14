@@ -1,0 +1,33 @@
+.ant-layout-sider {
+  padding-right: 24px;
+  padding-bottom: 20px;
+  padding-left: 24px;
+}
+.logo {
+  margin: 16px;
+  margin-top: 20px;
+  margin-bottom: 14px;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    height: "32px";
+    width: "auto";
+    transition: "all 0.2s ease";
+  }
+}
+
+.ant-menu-item,
+.ant-menu-submenu-title {
+  display: flex !important;
+}
+.ant-menu.ant-menu-vertical,
+.ant-menu-inline {
+  border-inline-end: none !important;
+}
+.ant-menu-item-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
